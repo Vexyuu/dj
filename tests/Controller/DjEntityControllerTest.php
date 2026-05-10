@@ -107,7 +107,7 @@ final class DjEntityControllerTest extends WebTestCase
         self::assertResponseRedirects('/dj/entity');
         $this->client->followRedirect();
 
-        $this->entityManager->refresh($entity);
+        $entity = $this->repository->find($entity->getId());
         self::assertEquals('Gretta Modified', $entity->getNom());
     }
 
@@ -115,11 +115,11 @@ final class DjEntityControllerTest extends WebTestCase
     {
         $entity = $this->createDjEntity();
         
-        // On va sur la page d'édition pour récupérer le token CSRF du formulaire de suppression
+        // On va sur la page d'édition pour récupérer le formulaire de suppression
         $crawler = $this->client->request('GET', sprintf('/dj/entity/%d/edit', $entity->getId()));
         
-        // Le bouton de suppression est dans un formulaire séparé
-        $form = $crawler->filter('.delete-section form')->form();
+        // Le bouton de suppression est "Supprimer"
+        $form = $crawler->selectButton('Supprimer')->form();
         $this->client->submit($form);
 
         self::assertResponseRedirects('/dj/entity');
