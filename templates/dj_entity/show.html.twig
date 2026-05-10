@@ -1,0 +1,148 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DJ - {{ dj_entity.Nom }} {{ dj_entity.Prenom }}{% endblock %}
+
+{% block body %}
+<div class="show-container">
+    <h1>Profil du DJ : {{ dj_entity.Nom }} {{ dj_entity.Prenom }}</h1>
+
+    <table class="show-table">
+        <tbody>
+            <tr>
+                <th>ID</th>
+                <td>{{ dj_entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ dj_entity.Nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ dj_entity.Prenom }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td><a href="mailto:{{ dj_entity.Email }}">{{ dj_entity.Email }}</a></td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td>{{ dj_entity.Tel }}</td>
+            </tr>
+            <tr>
+                <th>Portfolio</th>
+                <td><a href="{{ dj_entity.UrlPortfolio }}" target="_blank">{{ dj_entity.UrlPortfolio }}</a></td>
+            </tr>
+            <tr>
+                <th>Event Date</th>
+                <td>{{ dj_entity.DateSoiree ? dj_entity.DateSoiree|date('Y-m-d') : 'Not set' }}</td>
+            </tr>
+            <tr>
+                <th>Equipment Available</th>
+                <td>{{ dj_entity.Materiel ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Color Theme</th>
+                <td>{{ dj_entity.Couleur }}</td>
+            </tr>
+            <tr>
+                <th>Photo</th>
+                <td>
+                    {% if dj_entity.Photo %}
+                        <img src="{{ asset('uploads/photos/' ~ dj_entity.Photo) }}" alt="Photo de {{ dj_entity.Prenom }}" style="max-width: 150px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    {% else %}
+                        Aucune photo
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Number of Speakers</th>
+                <td>{{ dj_entity.NbEnceintes }}</td>
+            </tr>
+            <tr>
+                <th>Power</th>
+                <td>{{ dj_entity.Puissance }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="actions">
+        <a href="{{ path('app_dj_entity_index') }}" class="btn">← Retour à la liste</a>
+        <a href="{{ path('app_dj_entity_edit', {'id': dj_entity.id}) }}" class="btn">Modifier</a>
+    </div>
+
+    <div class="delete-section">
+        {{ include('dj_entity/_delete_form.html.twig') }}
+    </div>
+</div>
+
+<style>
+    .show-container {
+        max-width: 800px;
+        text-align: left;
+    }
+    
+    .show-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 2rem 0;
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .show-table th, .show-table td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid #e2e8f0;
+    }
+    
+    .show-table th {
+        background: #f7fafc;
+        font-weight: 600;
+        color: #4a5568;
+        width: 150px;
+    }
+    
+    .show-table tr:hover {
+        background: #f9fafb;
+    }
+    
+    .show-table a {
+        color: #667eea;
+        text-decoration: none;
+    }
+    
+    .show-table a:hover {
+        text-decoration: underline;
+    }
+    
+    .actions {
+        margin-top: 2rem;
+        text-align: left;
+        display: flex;
+        gap: 1rem;
+    }
+    
+    .actions .btn {
+        margin: 0;
+    }
+    
+    .delete-section {
+        margin-top: 2rem;
+        text-align: center;
+    }
+    
+    .delete-section form {
+        display: inline-block;
+    }
+    
+    .delete-section .btn {
+        background: linear-gradient(45deg, #ff6b6b, #ff8787);
+    }
+    
+    .delete-section .btn:hover {
+        background: linear-gradient(45deg, #ff5252, #ff6e6e);
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,128 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create New DJ Profile{% endblock %}
+
+{% block body %}
+<div class="new-container">
+    <h1>Ajouter un DJ</h1>
+
+    <div class="form-section">
+        {{ include('dj_entity/_form.html.twig', {'button_label': 'Ajouter'}) }}
+    </div>
+
+    <div class="back-section">
+        <a href="{{ path('app_dj_entity_index') }}" class="btn btn-secondary">← Retour à la liste</a>
+    </div>
+</div>
+
+<style>
+    .new-container {
+        max-width: 700px;
+        text-align: left;
+    }
+    
+    h1 {
+        margin-bottom: 2rem;
+    }
+    
+    .form-section {
+        background: white;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin: 2rem 0;
+    }
+    
+    .form-section form {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .form-section .form-group {
+        margin-bottom: 1.5rem;
+    }
+    
+    .form-section label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: #2d3748;
+        font-family: 'Poppins', sans-serif;
+    }
+    
+    .form-section input,
+    .form-section textarea,
+    .form-section select {
+        width: 100%;
+        padding: 0.75rem;
+        border: 2px solid #e2e8f0;
+        border-radius: 6px;
+        font-size: 1rem;
+        transition: all 0.3s;
+        box-sizing: border-box;
+    }
+    
+    .form-section input:focus,
+    .form-section textarea:focus,
+    .form-section select:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    
+    .form-section .btn {
+        align-self: flex-start;
+        margin-top: 1.5rem;
+        background: linear-gradient(45deg, #48bb78, #38a169);
+    }
+    
+    .form-section .btn:hover {
+        background: linear-gradient(45deg, #38a169, #2f855a);
+        transform: translateY(-2px);
+    }
+    
+    .back-section {
+        margin-top: 2rem;
+    }
+    
+    .back-section .btn-secondary {
+        background: linear-gradient(45deg, #4299e1, #3182ce);
+        display: inline-block;
+    }
+    
+    .back-section .btn-secondary:hover {
+        background: linear-gradient(45deg, #3182ce, #2c5aa0);
+        transform: translateY(-2px);
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const colorInput = document.querySelector('input[type="color"]');
+
+        if (colorInput) {
+            const colorBox = document.createElement('div');
+            
+            colorBox.style.width = '35px';
+            colorBox.style.height = '35px';
+            colorBox.style.borderRadius = '8px';
+            colorBox.style.border = '2px solid #e2e8f0';
+            colorBox.style.display = 'inline-block';
+            colorBox.style.verticalAlign = 'middle';
+            colorBox.style.marginLeft = '15px';
+            colorBox.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+            colorBox.style.backgroundColor = colorInput.value; 
+
+            colorInput.style.display = 'inline-block';
+            colorInput.style.width = 'calc(100% - 65px)'; // Laisse de la place au carré
+            colorInput.style.verticalAlign = 'middle';
+
+            colorInput.parentNode.insertBefore(colorBox, colorInput.nextSibling);
+
+            colorInput.addEventListener('input', function() {
+                colorBox.style.backgroundColor = this.value;
+            });
+        }
+    });
+</script>
+{% endblock %}

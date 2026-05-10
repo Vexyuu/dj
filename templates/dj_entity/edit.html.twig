@@ -1,0 +1,117 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit DJ - {{ dj_entity.Nom }} {{ dj_entity.Prenom }}{% endblock %}
+
+{% block body %}
+<div class="edit-container">
+    <h1>Edit DJ Profile: {{ dj_entity.Nom }} {{ dj_entity.Prenom }}</h1>
+
+    <div class="form-section">
+        {{ include('dj_entity/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+        {{ include('dj_entity/_delete_form.html.twig') }}
+    </div>
+
+    <div class="bottom-actions">
+        <div class="back-section">
+            <a href="{{ path('app_dj_entity_index') }}" class="btn btn-secondary">← Retour à la liste</a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .edit-container {
+        max-width: 700px;
+        text-align: left;
+    }
+    
+    h1 {
+        margin-bottom: 2rem;
+    }
+    
+    .form-section {
+        background: white;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin: 2rem 0;
+    }
+    
+    .form-section form {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .form-section .form-group {
+        margin-bottom: 1.5rem;
+    }
+    
+    .form-section label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: #2d3748;
+        font-family: 'Poppins', sans-serif;
+    }
+    
+    .form-section input,
+    .form-section textarea,
+    .form-section select {
+        width: 100%;
+        padding: 0.75rem;
+        border: 2px solid #e2e8f0;
+        border-radius: 6px;
+        font-size: 1rem;
+        transition: all 0.3s;
+        box-sizing: border-box;
+    }
+    
+    .form-section input:focus,
+    .form-section textarea:focus,
+    .form-section select:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    
+    .form-section .btn {
+        align-self: flex-start;
+        margin-top: 1.5rem;
+    }
+    
+    .bottom-actions {
+        margin-top: 3rem;
+    }
+    
+    .back-section {
+        margin-bottom: 2rem;
+    }
+    
+    .back-section .btn-secondary {
+        background: linear-gradient(45deg, #4299e1, #3182ce);
+        display: inline-block;
+    }
+    
+    .back-section .btn-secondary:hover {
+        background: linear-gradient(45deg, #3182ce, #2c5aa0);
+        transform: translateY(-2px);
+    }
+    
+    .delete-section {
+        text-align: center;
+    }
+    
+    .delete-section form {
+        display: inline-block;
+    }
+    
+    .delete-section .btn {
+        background: linear-gradient(45deg, #ff6b6b, #ff8787) !important;
+        margin: 0 !important;
+    }
+    
+    .delete-section .btn:hover {
+        background: linear-gradient(45deg, #ff5252, #ff6e6e) !important;
+        transform: translateY(-2px);
+    }
+</style>
+{% endblock %}
