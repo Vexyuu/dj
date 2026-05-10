@@ -81,7 +81,8 @@ final class DjEntityControllerTest extends WebTestCase
         $this->client->request('GET', sprintf('/dj/entity/%d', $entity->getId()));
 
         self::assertResponseIsSuccessful();
-        self::assertSelectorTextContains('td', 'Guetta');
+        self::assertSelectorTextContains('h1', 'Profil du DJ');
+        self::assertSelectorTextContains('.show-table', 'Guetta');
     }
 
     public function testEdit(): void
@@ -91,8 +92,14 @@ final class DjEntityControllerTest extends WebTestCase
 
         self::assertResponseIsSuccessful();
 
+        // Création d'un fichier image temporaire pour le test (car requis par le formulaire)
+        $photoPath = tempnam(sys_get_temp_dir(), 'test_photo_edit');
+        imagepng(imagecreatetruecolor(10, 10), $photoPath);
+        $uploadedFile = new UploadedFile($photoPath, 'test_edit.png', 'image/png', null, true);
+
         $form = $crawler->selectButton('Mettre à jour')->form([
             'dj_entity[nom]' => 'Gretta Modified',
+            'dj_entity[photo]' => $uploadedFile,
         ]);
 
         $this->client->submit($form);
@@ -107,9 +114,13 @@ final class DjEntityControllerTest extends WebTestCase
     public function testDelete(): void
     {
         $entity = $this->createDjEntity();
-        $this->client->request('POST', sprintf('/dj/entity/%d', $entity->getId()), [
-            '_token' => $this->client->getContainer()->get('security.csrf.token_manager')->getToken('delete'.$entity->getId())->getValue(),
-        ]);
+        
+        // On va sur la page d'édition pour récupérer le token CSRF du formulaire de suppression
+        $crawler = $this->client->request('GET', sprintf('/dj/entity/%d/edit', $entity->getId()));
+        
+        // Le bouton de suppression est dans un formulaire séparé
+        $form = $crawler->filter('.delete-section form')->form();
+        $this->client->submit($form);
 
         self::assertResponseRedirects('/dj/entity');
         $this->client->followRedirect();
