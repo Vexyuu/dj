@@ -14,17 +14,19 @@ use ApiPlatform\Metadata\Delete;
 
 #[ORM\Entity(repositoryClass: DjEntityRepository::class)]
 #[ApiResource(
-    stateless : false,
+    stateless: false,
     operations: [
-        new GetCollection(security: "is_granted('IS_AUTHENTICATED_FULLY')"),
-        new Post(security: "is_granted('IS_AUTHENTICATED_FULLY')"),
-        new Get(security: "is_granted('IS_AUTHENTICATED_FULLY')"),
-        new Put(security: "is_granted('IS_AUTHENTICATED_FULLY')"),
-        new Delete(security: "is_granted('IS_AUTHENTICATED_FULLY')")
+        new GetCollection(security: self::SECURITY_AUTHENTICATED),
+        new Post(security: self::SECURITY_AUTHENTICATED),
+        new Get(security: self::SECURITY_AUTHENTICATED),
+        new Put(security: self::SECURITY_AUTHENTICATED),
+        new Delete(security: self::SECURITY_AUTHENTICATED)
     ]
 )]
 class DjEntity
 {
+    public const SECURITY_AUTHENTICATED = "is_granted('IS_AUTHENTICATED_FULLY')";
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

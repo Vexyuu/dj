@@ -48,7 +48,7 @@
                 <th>Photo</th>
                 <td>
                     {% if dj_entity.Photo %}
-                        <img src="{{ asset('uploads/photos/' ~ dj_entity.Photo) }}" alt="Photo de {{ dj_entity.Prenom }}" style="max-width: 150px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        <img src="{{ asset('uploads/photos/' ~ dj_entity.Photo) }}" alt="{{ dj_entity.Prenom }}" style="max-width: 150px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
                     {% else %}
                         Aucune photo
                     {% endif %}
