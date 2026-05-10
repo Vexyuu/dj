@@ -12,11 +12,12 @@ final class DjEntityControllerTest extends WebTestCase
 {
     private EntityManagerInterface $entityManager;
     private DjEntityRepository $repository;
+    private $client;
 
     protected function setUp(): void
     {
-        $client = static::createClient();
-        $this->entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $this->client = static::createClient();
+        $this->entityManager = $this->client->getContainer()->get('doctrine')->getManager();
         $this->repository = $this->entityManager->getRepository(DjEntity::class);
 
         foreach ($this->repository->findAll() as $entity) {
@@ -27,8 +28,7 @@ final class DjEntityControllerTest extends WebTestCase
 
     public function testIndex(): void
     {
-        $client = static::createClient();
-        $client->request('GET', '/dj/entity');
+        $this->client->request('GET', '/dj/entity');
 
         self::assertResponseIsSuccessful();
         self::assertSelectorTextContains('h1', 'Profils des DJs');
@@ -36,8 +36,7 @@ final class DjEntityControllerTest extends WebTestCase
 
     public function testNew(): void
     {
-        $client = static::createClient();
-        $crawler = $client->request('GET', '/dj/entity/new');
+        $crawler = $this->client->request('GET', '/dj/entity/new');
 
         self::assertResponseIsSuccessful();
 
@@ -66,10 +65,10 @@ final class DjEntityControllerTest extends WebTestCase
             'dj_entity[puissance]' => 2000,
         ]);
 
-        $client->submit($form);
+        $this->client->submit($form);
 
         self::assertResponseRedirects('/dj/entity');
-        $client->followRedirect();
+        $this->client->followRedirect();
 
         $entity = $this->repository->findOneBy(['email' => 'david@example.com']);
         self::assertNotNull($entity);
@@ -79,8 +78,7 @@ final class DjEntityControllerTest extends WebTestCase
     public function testShow(): void
     {
         $entity = $this->createDjEntity();
-        $client = static::createClient();
-        $client->request('GET', sprintf('/dj/entity/%d', $entity->getId()));
+        $this->client->request('GET', sprintf('/dj/entity/%d', $entity->getId()));
 
         self::assertResponseIsSuccessful();
         self::assertSelectorTextContains('td', 'Guetta');
@@ -89,8 +87,7 @@ final class DjEntityControllerTest extends WebTestCase
     public function testEdit(): void
     {
         $entity = $this->createDjEntity();
-        $client = static::createClient();
-        $crawler = $client->request('GET', sprintf('/dj/entity/%d/edit', $entity->getId()));
+        $crawler = $this->client->request('GET', sprintf('/dj/entity/%d/edit', $entity->getId()));
 
         self::assertResponseIsSuccessful();
 
@@ -98,10 +95,10 @@ final class DjEntityControllerTest extends WebTestCase
             'dj_entity[nom]' => 'Gretta Modified',
         ]);
 
-        $client->submit($form);
+        $this->client->submit($form);
 
         self::assertResponseRedirects('/dj/entity');
-        $client->followRedirect();
+        $this->client->followRedirect();
 
         $this->entityManager->refresh($entity);
         self::assertEquals('Gretta Modified', $entity->getNom());
@@ -110,13 +107,12 @@ final class DjEntityControllerTest extends WebTestCase
     public function testDelete(): void
     {
         $entity = $this->createDjEntity();
-        $client = static::createClient();
-        $client->request('POST', sprintf('/dj/entity/%d', $entity->getId()), [
-            '_token' => $client->getContainer()->get('security.csrf.token_manager')->getToken('delete'.$entity->getId())->getValue(),
+        $this->client->request('POST', sprintf('/dj/entity/%d', $entity->getId()), [
+            '_token' => $this->client->getContainer()->get('security.csrf.token_manager')->getToken('delete'.$entity->getId())->getValue(),
         ]);
 
         self::assertResponseRedirects('/dj/entity');
-        $client->followRedirect();
+        $this->client->followRedirect();
 
         self::assertNull($this->repository->find($entity->getId()));
     }
