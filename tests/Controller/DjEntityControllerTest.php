@@ -12,7 +12,7 @@ final class DjEntityControllerTest extends WebTestCase
     public function testIndex(): void
     {
         $client = static::createClient();
-        $client->request('GET', '/dj/entity/');
+        $client->request('GET', '/dj/entity');
 
         self::assertResponseIsSuccessful();
         self::assertSelectorTextContains('h1', 'Profils des DJs');
