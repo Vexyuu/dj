@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit DJ - {{ dj_entity.Nom }} {{ dj_entity.Prenom }}{% endblock %}
+{% block title %}Edit DJ - {{ dj_entity.nom }} {{ dj_entity.prenom }}{% endblock %}
 
 {% block body %}
 <div class="edit-container">
-    <h1>Edit DJ Profile: {{ dj_entity.Nom }} {{ dj_entity.Prenom }}</h1>
+    <h1>Edit DJ Profile: {{ dj_entity.nom }} {{ dj_entity.prenom }}</h1>
 
     <div class="form-section">
         {{ include('dj_entity/_form.html.twig', {'button_label': 'Mettre à jour'}) }}

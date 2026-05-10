@@ -19,8 +19,8 @@
         {% for dj_entity in dj_entities %}
             <tr>
                 <td>{{ dj_entity.id }}</td>
-                <td>{{ dj_entity.Nom }}</td>
-                <td>{{ dj_entity.Prenom }}</td>
+                <td>{{ dj_entity.nom }}</td>
+                <td>{{ dj_entity.prenom }}</td>
                 <td>
                     <a href="{{ path('app_dj_entity_show', {'id': dj_entity.id}) }}" class="btn-small">Détails</a>
                     <a href="{{ path('app_dj_entity_edit', {'id': dj_entity.id}) }}" class="btn-small">Modifier</a>

@@ -12,58 +12,58 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\Put;
 use ApiPlatform\Metadata\Delete;
 
+const SECURITY_AUTHENTICATED = "is_granted('IS_AUTHENTICATED_FULLY')";
+
 #[ORM\Entity(repositoryClass: DjEntityRepository::class)]
 #[ApiResource(
     stateless: false,
     operations: [
-        new GetCollection(security: self::SECURITY_AUTHENTICATED),
-        new Post(security: self::SECURITY_AUTHENTICATED),
-        new Get(security: self::SECURITY_AUTHENTICATED),
-        new Put(security: self::SECURITY_AUTHENTICATED),
-        new Delete(security: self::SECURITY_AUTHENTICATED)
+        new GetCollection(security: SECURITY_AUTHENTICATED),
+        new Post(security: SECURITY_AUTHENTICATED),
+        new Get(security: SECURITY_AUTHENTICATED),
+        new Put(security: SECURITY_AUTHENTICATED),
+        new Delete(security: SECURITY_AUTHENTICATED)
     ]
 )]
 class DjEntity
 {
-    public const SECURITY_AUTHENTICATED = "is_granted('IS_AUTHENTICATED_FULLY')";
-
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Nom = null;
+    private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Prenom = null;
+    private ?string $prenom = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Email = null;
+    private ?string $email = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Tel = null;
+    private ?string $tel = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $UrlPortfolio = null;
+    private ?string $urlPortfolio = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTime $DateSoiree = null;
+    private ?\DateTime $dateSoiree = null;
 
     #[ORM\Column]
-    private ?bool $Materiel = null;
+    private ?bool $materiel = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Couleur = null;
+    private ?string $couleur = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Photo = null;
+    private ?string $photo = null;
 
     #[ORM\Column]
-    private ?int $NbEnceintes = null;
+    private ?int $nbEnceintes = null;
 
     #[ORM\Column]
-    private ?int $Puissance = null;
+    private ?int $puissance = null;
 
     public function getId(): ?int
     {
@@ -72,133 +72,122 @@ class DjEntity
 
     public function getNom(): ?string
     {
-        return $this->Nom;
+        return $this->nom;
     }
 
-    public function setNom(string $Nom): static
+    public function setNom(string $nom): static
     {
-        $this->Nom = $Nom;
-
+        $this->nom = $nom;
         return $this;
     }
 
     public function getPrenom(): ?string
     {
-        return $this->Prenom;
+        return $this->prenom;
     }
 
-    public function setPrenom(string $Prenom): static
+    public function setPrenom(string $prenom): static
     {
-        $this->Prenom = $Prenom;
-
+        $this->prenom = $prenom;
         return $this;
     }
 
     public function getEmail(): ?string
     {
-        return $this->Email;
+        return $this->email;
     }
 
-    public function setEmail(string $Email): static
+    public function setEmail(string $email): static
     {
-        $this->Email = $Email;
-
+        $this->email = $email;
         return $this;
     }
 
     public function getTel(): ?string
     {
-        return $this->Tel;
+        return $this->tel;
     }
 
-    public function setTel(string $Tel): static
+    public function setTel(string $tel): static
     {
-        $this->Tel = $Tel;
-
+        $this->tel = $tel;
         return $this;
     }
 
     public function getUrlPortfolio(): ?string
     {
-        return $this->UrlPortfolio;
+        return $this->urlPortfolio;
     }
 
-    public function setUrlPortfolio(string $UrlPortfolio): static
+    public function setUrlPortfolio(string $urlPortfolio): static
     {
-        $this->UrlPortfolio = $UrlPortfolio;
-
+        $this->urlPortfolio = $urlPortfolio;
         return $this;
     }
 
     public function getDateSoiree(): ?\DateTime
     {
-        return $this->DateSoiree;
+        return $this->dateSoiree;
     }
 
-    public function setDateSoiree(\DateTime $DateSoiree): static
+    public function setDateSoiree(\DateTime $dateSoiree): static
     {
-        $this->DateSoiree = $DateSoiree;
-
+        $this->dateSoiree = $dateSoiree;
         return $this;
     }
 
     public function isMateriel(): ?bool
     {
-        return $this->Materiel;
+        return $this->materiel;
     }
 
-    public function setMateriel(bool $Materiel): static
+    public function setMateriel(bool $materiel): static
     {
-        $this->Materiel = $Materiel;
-
+        $this->materiel = $materiel;
         return $this;
     }
 
     public function getCouleur(): ?string
     {
-        return $this->Couleur;
+        return $this->couleur;
     }
 
-    public function setCouleur(string $Couleur): static
+    public function setCouleur(string $couleur): static
     {
-        $this->Couleur = $Couleur;
-
+        $this->couleur = $couleur;
         return $this;
     }
 
     public function getPhoto(): ?string
     {
-        return $this->Photo;
+        return $this->photo;
     }
 
-    public function setPhoto(string $Photo): static
+    public function setPhoto(string $photo): static
     {
-        $this->Photo = $Photo;
-
+        $this->photo = $photo;
         return $this;
     }
 
     public function getNbEnceintes(): ?int
     {
-        return $this->NbEnceintes;
+        return $this->nbEnceintes;
     }
 
-    public function setNbEnceintes(int $NbEnceintes): static
+    public function setNbEnceintes(int $nbEnceintes): static
     {
-        $this->NbEnceintes = $NbEnceintes;
-
+        $this->nbEnceintes = $nbEnceintes;
         return $this;
     }
 
     public function getPuissance(): ?int
     {
-        return $this->Puissance;
+        return $this->puissance;
     }
 
-    public function setPuissance(int $Puissance): static
+    public function setPuissance(int $puissance): static
     {
-        $this->Puissance = $Puissance;
-
+        $this->puissance = $puissance;
         return $this;
     }
 }

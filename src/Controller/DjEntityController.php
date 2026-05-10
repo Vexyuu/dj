@@ -34,7 +34,7 @@ final class DjEntityController extends AbstractController
     if ($form->isSubmitted() && $form->isValid()) {
         
         // 1. On récupère l'image transmise dans le formulaire
-        $photoFile = $form->get('Photo')->getData();
+        $photoFile = $form->get('photo')->getData();
 
         // 2. Si une image a bien été envoyée
         if ($photoFile) {

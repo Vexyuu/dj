@@ -16,15 +16,17 @@ class DjEntityType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Nom')
-            ->add('Prenom')
-            ->add('Email')
-            ->add('Tel')
-            ->add('UrlPortfolio')
-            ->add('DateSoiree')
-            ->add('Materiel')
-            ->add('Couleur', ColorType::class)
-            ->add('Photo', FileType::class, [
+            ->add('nom')
+            ->add('prenom')
+            ->add('email')
+            ->add('tel')
+            ->add('urlPortfolio')
+            ->add('dateSoiree', null, [
+                'widget' => 'single_text',
+            ])
+            ->add('materiel')
+            ->add('couleur', ColorType::class)
+            ->add('photo', FileType::class, [
                 'mapped' => false,
                 'required' => true,
                 'constraints' => [
@@ -37,8 +39,8 @@ class DjEntityType extends AbstractType
                     )
                 ],
             ])
-            ->add('NbEnceintes')
-            ->add('Puissance')
+            ->add('nbEnceintes')
+            ->add('puissance')
         ;
     }
 

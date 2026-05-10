@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}DJ - {{ dj_entity.Nom }} {{ dj_entity.Prenom }}{% endblock %}
+{% block title %}DJ - {{ dj_entity.nom }} {{ dj_entity.prenom }}{% endblock %}
 
 {% block body %}
 <div class="show-container">
-    <h1>Profil du DJ : {{ dj_entity.Nom }} {{ dj_entity.Prenom }}</h1>
+    <h1>Profil du DJ : {{ dj_entity.nom }} {{ dj_entity.prenom }}</h1>
 
     <table class="show-table">
         <tbody>
@@ -14,41 +14,41 @@
             </tr>
             <tr>
                 <th>Name</th>
-                <td>{{ dj_entity.Nom }}</td>
+                <td>{{ dj_entity.nom }}</td>
             </tr>
             <tr>
                 <th>Prenom</th>
-                <td>{{ dj_entity.Prenom }}</td>
+                <td>{{ dj_entity.prenom }}</td>
             </tr>
             <tr>
                 <th>Email</th>
-                <td><a href="mailto:{{ dj_entity.Email }}">{{ dj_entity.Email }}</a></td>
+                <td><a href="mailto:{{ dj_entity.email }}">{{ dj_entity.email }}</a></td>
             </tr>
             <tr>
                 <th>Phone</th>
-                <td>{{ dj_entity.Tel }}</td>
+                <td>{{ dj_entity.tel }}</td>
             </tr>
             <tr>
                 <th>Portfolio</th>
-                <td><a href="{{ dj_entity.UrlPortfolio }}" target="_blank">{{ dj_entity.UrlPortfolio }}</a></td>
+                <td><a href="{{ dj_entity.urlPortfolio }}" target="_blank">{{ dj_entity.urlPortfolio }}</a></td>
             </tr>
             <tr>
                 <th>Event Date</th>
-                <td>{{ dj_entity.DateSoiree ? dj_entity.DateSoiree|date('Y-m-d') : 'Not set' }}</td>
+                <td>{{ dj_entity.dateSoiree ? dj_entity.dateSoiree|date('Y-m-d') : 'Not set' }}</td>
             </tr>
             <tr>
                 <th>Equipment Available</th>
-                <td>{{ dj_entity.Materiel ? 'Yes' : 'No' }}</td>
+                <td>{{ dj_entity.materiel ? 'Yes' : 'No' }}</td>
             </tr>
             <tr>
                 <th>Color Theme</th>
-                <td>{{ dj_entity.Couleur }}</td>
+                <td>{{ dj_entity.couleur }}</td>
             </tr>
             <tr>
                 <th>Photo</th>
                 <td>
-                    {% if dj_entity.Photo %}
-                        <img src="{{ asset('uploads/photos/' ~ dj_entity.Photo) }}" alt="{{ dj_entity.Prenom }}" style="max-width: 150px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    {% if dj_entity.photo %}
+                        <img src="{{ asset('uploads/photos/' ~ dj_entity.photo) }}" alt="{{ dj_entity.prenom }}" style="max-width: 150px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
                     {% else %}
                         Aucune photo
                     {% endif %}
@@ -56,11 +56,11 @@
             </tr>
             <tr>
                 <th>Number of Speakers</th>
-                <td>{{ dj_entity.NbEnceintes }}</td>
+                <td>{{ dj_entity.nbEnceintes }}</td>
             </tr>
             <tr>
                 <th>Power</th>
-                <td>{{ dj_entity.Puissance }}</td>
+                <td>{{ dj_entity.puissance }}</td>
             </tr>
         </tbody>
     </table>
